@@ -1,1 +1,74 @@
-This C++ Password Manager is a console-based application designed to help users store account names and passwords in a simple and organized manner. The program includes a class-based structure with methods to add new credentials and view all stored entries. It supports up to 50 saved passwords and provides a clean, loop-driven menu for smooth user interaction. Ideal for beginners, this project demonstrates core C++ concepts such as classes, arrays, data encapsulation, and basic input handling. Although it stores passwords in plain text and does not use encryption or file handling, it can be easily expanded with additional features like file storage, password encryption, editing options, and GUI support.
+#include <iostream>
+using namespace std;
+
+class PasswordManager {
+
+private:
+    string accounts[50];   // to store account names
+    string passwords[50];  // to store passwords
+    int count;             // total stored passwords
+
+public:
+    // constructor to initialize count
+    PasswordManager() {
+        count = 0;
+    }
+
+    
+    void addPassword() {
+        if (count >= 50) {
+            cout << "Storage Full!\n";
+            return;
+        }
+
+        cout << "Enter Account Name: ";
+        cin >> accounts[count];
+
+        cout << "Enter Password: ";
+        cin >> passwords[count];
+
+        count++;
+        cout << "Password Saved!\n";
+    }
+
+    // Function to view passwords
+    void viewPasswords() {
+        if (count == 0) {
+            cout << "No passwords stored yet.\n";
+            return;
+        }
+
+        cout << "\n--- Stored Passwords ---\n";
+        for (int i = 0; i < count; i++) {
+            cout << "Account: " << accounts[i]
+                 << " | Password: " << passwords[i] << endl;
+        }
+    }
+};
+
+int main() {
+
+    PasswordManager pm;
+    int choice;
+
+    do {
+        cout << "\n===== PASSWORD MANAGER =====\n";
+        cout << "1. Add Password\n";
+        cout << "2. View Passwords\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+            pm.addPassword();
+        else if (choice == 2)
+            pm.viewPasswords();
+        else if (choice == 3)
+            cout << "Exiting...\n";
+        else
+            cout << "Invalid choice!\n";
+
+    } while (choice != 3);
+
+    return 0;
+}
